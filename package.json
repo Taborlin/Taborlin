@@ -2,7 +2,7 @@
   "author": "Garth Braithwaite <garthdb@gmail.com> (http://www.garthdb.com)",
   "name": "taborlin",
   "description": "Generate usage guides for css",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "repository": "git@github.com:topcoat/taborlin.git",
   "keywords": [
     "css",
