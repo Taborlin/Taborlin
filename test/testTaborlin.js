@@ -274,9 +274,8 @@
       });
       taborlin.generate((function(){
         var caseTaborliniFrame, resultiFrame;
-        caseTaborliniFrame = read(path.join('test', 'cases', 'iframe', 'overlay.overlay.html'), 'utf8');
-        resultiFrame = read(path.join('fulldocs/', 'overlay.overlay.html'), 'utf8');
-        resultiFrame.should.equal(caseTaborliniFrame);
+        caseTaborliniFrame = read(path.join('test', 'cases', 'iframe', 'overlay.overlay.html'), 'utf8').trim();
+        resultiFrame = read(path.join('fulldocs/', 'overlay.overlay.html'), 'utf8').trim();        resultiFrame.should.equal(caseTaborliniFrame);
         if(fs.existsSync('fulldocs')){
           fs.removeSync('fulldocs');
         }
