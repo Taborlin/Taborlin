@@ -1,4 +1,4 @@
-#Taborlin [![Build Status](https://travis-ci.org/taborlin/taborlin.png)](https://travis-ci.org/taborlin/taborlin)
+#Taborlin [![Build Status](https://travis-ci.org/Taborlin/Taborlin.png)](https://travis-ci.org/Taborlin/Taborlin)
 
 [![NPM](https://nodei.co/npm/taborlin.png)](https://nodei.co/npm/taborlin)
 
