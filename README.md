@@ -1,6 +1,4 @@
-#Taborlin [![Build Status](https://travis-ci.org/Taborlin/Taborlin.png)](https://travis-ci.org/Taborlin/Taborlin)
-
-[![NPM](https://nodei.co/npm/taborlin.png)](https://nodei.co/npm/taborlin)
+# Taborlin [![Build Status](https://travis-ci.org/Taborlin/Taborlin.svg)](https://travis-ci.org/Taborlin/Taborlin) [![npm](https://img.shields.io/npm/v/taborlin.svg)](https://www.npmjs.com/package/taborlin)
 
 A tool for generating usage guides for css.
 
