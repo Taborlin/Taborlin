@@ -2,7 +2,7 @@
 
 A tool for generating usage guides for css.
 
-##Taborlin Comment Specification
+## Taborlin Comment Specification
 
 Taborlin uses css-parse to divide asunder your css document and find all the relevant Taborlin comments.
 
@@ -56,7 +56,7 @@ The following are recommend and/or required fields:
 
 Taborlin assumes everything between two Taborlin comments, and everything after the last Taborlin comment, is a component.  Put anything that isn't a component (general styles) above the first Taborlin comment.
 
-##Installation
+## Installation
 
 Install with npm.  It's meant to be command line tool, so you probably want to install it globally (with `-g`).
 
@@ -64,7 +64,7 @@ Install with npm.  It's meant to be command line tool, so you probably want to i
 npm install -g taborlin
 ```
 
-##Help
+## Help
 
 The output of the help command.
 
@@ -77,9 +77,9 @@ The output of the help command.
 -V, --version                                    output the version number
 ```
 
-##Command Line Options
+## Command Line Options
 
-###Source
+### Source
 
 Specify a source directory with `-s` or `--source`.  Defaults to `src/`.
 
@@ -87,7 +87,7 @@ Specify a source directory with `-s` or `--source`.  Defaults to `src/`.
 taborlin -s release/css/
 ```
 
-###Destination
+### Destination
 
 Specify a destination with `-d` or `--destination`.  Defaults to `docs/`.
 
@@ -95,7 +95,7 @@ Specify a destination with `-d` or `--destination`.  Defaults to `docs/`.
 taborlin -d taborlins/
 ```
 
-###Template
+### Template
 
 Specify a template with `-t` or `--template`.  A default template is included in Taborlin if one is not provided.
 
@@ -117,7 +117,7 @@ This includes npm installed templates
 taborlin -t node_modules/topdoc-theme
 ```
 
-###Project Title
+### Project Title
 
 The project title will be passed through to the jade template file.
 
@@ -135,7 +135,7 @@ yeilds:
 <title>Awesome</title>
 ```
 
-##package.json Configuration
+## package.json Configuration
 
 All the options can be configured in the package.json file.  This is super helpful if you are always using the same configuration.  It will look in the package.json file if it exists, but can be overridden by the command line options.
 
@@ -190,11 +190,11 @@ yeilds:
 <p>CSS for clean and fast web apps</p>
 ```
 
-##Template
+## Template
 
 The jade template has data passed through by default:
 
-####Document Object
+#### Document Object
 The `document` object contains relevant information about just the current document being generated below is an example:
 
 ```json
@@ -222,7 +222,7 @@ The `document` object contains relevant information about just the current docum
   ]
 }
 ```
-####Nav Object
+#### Nav Object
 The `nav` object contains names and urls to all the generated html files.  In the jade template this can utilized to create a navigation to the other pages.
 ```jade
 nav.site: ul
@@ -233,12 +233,12 @@ nav.site: ul
 			li: a(href=item.url)=item.text
 ```
 
-####Project Object
+#### Project Object
 The `project` object contains relevant project information.  Currently it only contains the `title` property. (passed through the command line `-p` option, or thorugh the package.json information).
 
 ```jade
 title=project.title
 ```
 
-####TemplateData Object
+#### TemplateData Object
 As mentioned above, additional data can be passed through to the template in the package.json file.  This is accessible in the template as the `templateData` object.  See the example above.
