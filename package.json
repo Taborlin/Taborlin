@@ -1,9 +1,9 @@
 {
   "author": "Garth Braithwaite <garthdb@gmail.com> (http://www.garthdb.com)",
-  "name": "topdoc",
+  "name": "taborlin",
   "description": "Generate usage guides for css",
   "version": "0.4.0",
-  "repository": "git@github.com:topcoat/topdoc.git",
+  "repository": "git@github.com:topcoat/taborlin.git",
   "keywords": [
     "css",
     "style",
@@ -16,9 +16,9 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   ],
-  "main": "./lib/topdoc",
+  "main": "./lib/taborlin",
   "bin": {
-    "topdoc": "./bin/topdoc"
+    "taborlin": "./bin/taborlin"
   },
   "preferGlobal": "true",
   "scripts": {

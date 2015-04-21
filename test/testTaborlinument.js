@@ -19,9 +19,9 @@
 (function() {
   "use strict";
 
-  var Topdocument, fs, path, read, should;
+  var Taborlinument, fs, path, read, should;
 
-  Topdocument = require('../lib/topdocument');
+  Taborlinument = require('../lib/taborlinument');
 
   path = require('path');
 
@@ -29,54 +29,54 @@
 
   read = fs.readFileSync;
 
-  describe('Topdocument', function() {
+  describe('Taborlinument', function() {
     before(function() {
       this.documentSourcePath = path.join('test', 'cases', 'simple', 'button.css');
-      this.topdocument = new Topdocument(this.documentSourcePath);
+      this.taborlinument = new Taborlinument(this.documentSourcePath);
     });
     it('exists', function() {
-      Topdocument.should.be.ok;
-      this.topdocument.should.be.instanceOf(Topdocument);
+      Taborlinument.should.be.ok;
+      this.taborlinument.should.be.instanceOf(Taborlinument);
     });
     it('has a sourcePath css file property', function() {
-      this.topdocument.sourcePath.should.equal(this.documentSourcePath);
+      this.taborlinument.sourcePath.should.equal(this.documentSourcePath);
     });
     it('should parse the css file', function() {
       var caseCSSJson, parsedJson;
       caseCSSJson = read(path.join('test', 'cases', 'simple', 'button.json'), 'utf8');
-      parsedJson = JSON.stringify(this.topdocument.cssParseResults, null, 2);
+      parsedJson = JSON.stringify(this.taborlinument.cssParseResults, null, 2);
     });
-    it('should validate topdoc comments', function () {
+    it('should validate taborlin comments', function () {
       var validComment = {
         'type': 'comment',
         'comment': read(path.join('test', 'cases', 'simple', 'validcomment.txt'), 'utf8')
       };
-      var validationResult = this.topdocument.isValidComment(validComment);
+      var validationResult = this.taborlinument.isValidComment(validComment);
       validationResult.should.equal(true);
     });
     it('should generate json for template', function() {
-      var caseTopdocJson, resultJson;
-      caseTopdocJson = read(path.join('test', 'cases', 'simple', 'button.topdoc.json'), 'utf8');
-      resultJson = JSON.stringify(this.topdocument.results, null, 2);
-      resultJson.should.equal(caseTopdocJson);
+      var caseTaborlinJson, resultJson;
+      caseTaborlinJson = read(path.join('test', 'cases', 'simple', 'button.taborlin.json'), 'utf8');
+      resultJson = JSON.stringify(this.taborlinument.results, null, 2);
+      resultJson.should.equal(caseTaborlinJson);
     });
     it('should parse component name for template', function() {
-      this.topdocument.results.components[0].name.should.equal('Button');
+      this.taborlinument.results.components[0].name.should.equal('Button');
     });
     it('should generate component slug for template', function() {
-      this.topdocument.results.components[0].slug.should.equal('button');
+      this.taborlinument.results.components[0].slug.should.equal('button');
     });
     it('should parse component details for template', function() {
-      this.topdocument.results.components[0].modifiers[':active'].should.equal('Active state');
+      this.taborlinument.results.components[0].modifiers[':active'].should.equal('Active state');
     });
     it('should parse example html for template', function() {
-      this.topdocument.results.components[0].markup.should.equal("<a class=\"topcoat-button\">Button</a>\r<a class=\"topcoat-button is-active\">Button</a>\r<a class=\"topcoat-button is-disabled\">Button</a>");
+      this.taborlinument.results.components[0].markup.should.equal("<a class=\"topcoat-button\">Button</a>\r<a class=\"topcoat-button is-active\">Button</a>\r<a class=\"topcoat-button is-disabled\">Button</a>");
     });
     it('should generate dash separated slugs for template', function() {
-      this.topdocument.results.components[1].slug.should.equal('topdoc-quiet-button-component');
+      this.taborlinument.results.components[1].slug.should.equal('taborlin-quiet-button-component');
     });
     it('should parse filename', function() {
-      this.topdocument.results.filename.should.equal('button.css');
+      this.taborlinument.results.filename.should.equal('button.css');
     });
   });
 

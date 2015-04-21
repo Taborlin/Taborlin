@@ -22,9 +22,9 @@
   sys = require('sys');
   exec = require('child_process').exec;
   path = require('path');
-  describe('Topdoc CLI', function() {
-    // it("should validate a Topdoc css file", function(done){
-    //   exec("topdoc validate -s " + path.join('test', 'cases'), function (error, stdout, stderr){
+  describe('Taborlin CLI', function() {
+    // it("should validate a Taborlin css file", function(done){
+    //   exec("taborlin validate -s " + path.join('test', 'cases'), function (error, stdout, stderr){
     //     sys.puts(stdout);
     //     sys.puts(error);
     //     done();

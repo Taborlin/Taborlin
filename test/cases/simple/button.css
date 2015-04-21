@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-/* topdoc
+/* taborlin
   name: Button
   description: A simple button
   modifiers:
@@ -90,8 +90,8 @@ limitations under the License.
   cursor: default;
   pointer-events: none;
 }
-/* topdoc
-  name: Topdoc Quiet Button Component
+/* taborlin
+  name: Taborlin Quiet Button Component
   description: A simple button
   modifiers:
     :active: Quiet button active state

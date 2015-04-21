@@ -1,17 +1,17 @@
-#Topdoc [![Build Status](https://travis-ci.org/topcoat/topdoc.png)](https://travis-ci.org/topcoat/topdoc)
+#Taborlin [![Build Status](https://travis-ci.org/topcoat/taborlin.png)](https://travis-ci.org/topcoat/taborlin)
 
-[![NPM](https://nodei.co/npm/topdoc.png)](https://nodei.co/npm/topdoc)
+[![NPM](https://nodei.co/npm/taborlin.png)](https://nodei.co/npm/taborlin)
 
 A tool for generating usage guides for css.
 
-##Topdoc Comment Specification
+##Taborlin Comment Specification
 
-Topdoc uses css-parse to divide asunder your css document and find all the relevant Topdoc comments.
+Taborlin uses css-parse to divide asunder your css document and find all the relevant Taborlin comments.
 
-Below is an example of a Topdoc comment, take a look, and then read the explanation under it.
+Below is an example of a Taborlin comment, take a look, and then read the explanation under it.
 
 ```css
-/* topdoc
+/* taborlin
   name: Button
   description: A simple button
   modifiers:
@@ -41,7 +41,7 @@ Below is an example of a Topdoc comment, take a look, and then read the explanat
 /* all your css junk here */
 ```
 
-Topdoc comments must start with `topdoc` on the first comment line, it makes it quick and easy to identify from other comments.
+Taborlin comments must start with `taborlin` on the first comment line, it makes it quick and easy to identify from other comments.
 
 The rest of the data uses a [YAML](http://www.yaml.org/) friendly syntax.
 
@@ -54,16 +54,16 @@ The following are recommend and/or required fields:
 * `modifiers`: These can be psuedo classes, or addition rules applied to the component. This must be a [YAML mapping](http://yaml4r.sourceforge.net/doc/page/collections_in_yaml.htm) (`*modifier*:*description*`) which becomes a js hash
 * `markup` (required): This is the magic; it's the html that will be used to display the component in the docs.
 * `tags`: Just some obligitory metadata.
-* `blarg`: Since Topdoc uses a flexible YAML syntax, feel free to add any additional custom data you might need for your template.
+* `blarg`: Since Taborlin uses a flexible YAML syntax, feel free to add any additional custom data you might need for your template.
 
-Topdoc assumes everything between two Topdoc comments, and everything after the last Topdoc comment, is a component.  Put anything that isn't a component (general styles) above the first Topdoc comment.
+Taborlin assumes everything between two Taborlin comments, and everything after the last Taborlin comment, is a component.  Put anything that isn't a component (general styles) above the first Taborlin comment.
 
 ##Installation
 
 Install with npm.  It's meant to be command line tool, so you probably want to install it globally (with `-g`).
 
 ```bash
-npm install -g topdoc
+npm install -g taborlin
 ```
 
 ##Help
@@ -86,7 +86,7 @@ The output of the help command.
 Specify a source directory with `-s` or `--source`.  Defaults to `src/`.
 
 ```bash
-topdoc -s release/css/
+taborlin -s release/css/
 ```
 
 ###Destination
@@ -94,29 +94,29 @@ topdoc -s release/css/
 Specify a destination with `-d` or `--destination`.  Defaults to `docs/`.
 
 ```bash
-topdoc -d topdocs/
+taborlin -d taborlins/
 ```
 
 ###Template
 
-Specify a template with `-t` or `--template`.  A default template is included in Topdoc if one is not provided.
+Specify a template with `-t` or `--template`.  A default template is included in Taborlin if one is not provided.
 
 The template can be a single [jade](https://github.com/visionmedia/jade) file:
 
 ```bash
-topdoc -t template/template.jade
+taborlin -t template/template.jade
 ```
 
 or a directory (it will duplicate the whole template directory and look for index.jade in the template folder provided):
 
 ```bash
-topdoc -t /template
+taborlin -t /template
 ```
 
 This includes npm installed templates
 
 ```bash
-topdoc -t node_modules/topdoc-theme
+taborlin -t node_modules/topdoc-theme
 ```
 
 ###Project Title
@@ -124,7 +124,7 @@ topdoc -t node_modules/topdoc-theme
 The project title will be passed through to the jade template file.
 
 ```bash
-topdoc -p Awesome
+taborlin -p Awesome
 ```
 
 In the jade file it is `project.title`:
@@ -150,11 +150,11 @@ Also, additional data can be passed through to the jade template.  Below is an e
   "description": "CSS for clean and fast web apps",
   "main": "Gruntfile.js",
   "dependencies": {
-    "topdoc": "0.0.12"
+    "taborlin": "0.0.12"
   },
-  "topdoc": {
+  "taborlin": {
     "source": "release/css/",
-    "destination": "topdocs/",
+    "destination": "taborlins/",
     "template": "node_modules/topdoc-theme",
     "templateData": {
       "title": "Topcoat",
