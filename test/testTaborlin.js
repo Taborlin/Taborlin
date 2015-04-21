@@ -5,7 +5,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -17,13 +17,13 @@
  */
 (function() {
   "use strict";
-  var Topdoc, deleteFolderRecursive, fs, path, read;
-  Topdoc = require('../lib/topdoc');
+  var Taborlin, deleteFolderRecursive, fs, path, read;
+  Taborlin = require('../lib/taborlin');
   path = require('path');
   fs = require('fs-extra');
   read = fs.readFileSync;
 
-  describe('Topdoc', function() {
+  describe('Taborlin', function() {
     before(function() {
       this.srcDir = path.join('test', 'cases', 'simple');
       this.outputDir = path.join('test', 'docs');
@@ -34,79 +34,79 @@
       }
     });
     it('exists', function() {
-      var topdoc;
-      Topdoc.should.be.ok;
-      topdoc = new Topdoc({source: this.srcDir});
-      topdoc.should.be.instanceOf(Topdoc);
+      var taborlin;
+      Taborlin.should.be.ok;
+      taborlin = new Taborlin({source: this.srcDir});
+      taborlin.should.be.instanceOf(Taborlin);
     });
     it('should accept a source in the constructor', function() {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir
       });
-      topdoc.source.should.equal(this.srcDir);
+      taborlin.source.should.equal(this.srcDir);
     });
     it('should accept a destination in the constructor', function() {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir
       });
-      topdoc.destination.should.equal(this.outputDir);
+      taborlin.destination.should.equal(this.outputDir);
     });
     it('should accept a project title', function() {
-      var topdoc;
-      topdoc = new Topdoc({
-        source: this.srcDir, 
+      var taborlin;
+      taborlin = new Taborlin({
+        source: this.srcDir,
         destination: this.outputDir,
         templateData: {
           title: 'awesomeness'
         }
       });
-      topdoc.projectTitle.should.equal('Awesomeness');
+      taborlin.projectTitle.should.equal('Awesomeness');
     });
     it('should pass data through to the template', function() {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir,
         templateData: {
           title: 'awesomeness'
         }
       });
-      JSON.stringify(topdoc.templateData, null, 2).should.equal(JSON.stringify({title: 'awesomeness'}, null, 2));
+      JSON.stringify(taborlin.templateData, null, 2).should.equal(JSON.stringify({title: 'awesomeness'}, null, 2));
     });
     it('should find all the css files in a directory', function() {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir
       });
-      topdoc.files[0].should.equal('test/cases/simple/button.css');
+      taborlin.files[0].should.equal('test/cases/simple/button.css');
     });
     it('should ignore .min.css files in directory', function() {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir
       });
-      topdoc.files.length.should.equal(2);
+      taborlin.files.length.should.equal(2);
     });
     it('should generate an index.html', function(done) {
-      var generatedDoc, topdoc;
-      topdoc = new Topdoc({
+      var generatedDoc, taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir
       });
-      topdoc.generate((function(){
+      taborlin.generate((function(){
         generatedDoc = read(path.join('test', 'docs', 'index.html'), 'utf8');
         generatedDoc.should.be.ok;
         done();
       }).bind(done));
     });
     it('should use npm installed template', function(done) {
-      var generatedDoc, topdoc;
-      topdoc = new Topdoc({
+      var generatedDoc, taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: 'fulldocs/',
         template: path.join("node_modules", "topdoc-theme"),
@@ -134,7 +134,7 @@
           ]
         }
       });
-      topdoc.generate(function(){
+      taborlin.generate(function(){
         generatedDoc = read(path.join('fulldocs', 'index.html'), 'utf8');
         generatedDoc.should.be.ok;
         if(fs.existsSync('fulldocs')){
@@ -144,11 +144,11 @@
       });
     });
     it('should not overwrite an existing README.md file', function(done) {
-      var generatedDoc, topdoc;
+      var generatedDoc, taborlin;
       fs.createFileSync(path.join('fulldocs','README.md'));
       fs.writeFileSync(path.join('fulldocs','README.md'), 'original readme');
       // read(path.join('test', 'docs', 'index.html'), 'utf8');
-      topdoc = new Topdoc({
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: 'fulldocs/',
         template: path.join("node_modules", "topdoc-theme"),
@@ -176,7 +176,7 @@
           ]
         }
       });
-      topdoc.generate(function(){
+      taborlin.generate(function(){
 
         var expectedReadme = read(path.join('fulldocs','README.md'), 'utf8');
         expectedReadme.should.equal('original readme');
@@ -188,8 +188,8 @@
       });
     });
     it('should duplicate all the contents of the template folder', function(done) {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: 'fulldocs/',
         template: path.join("node_modules", "topdoc-theme"),
@@ -217,7 +217,7 @@
           ]
         }
        });
-      topdoc.generate(function(){
+      taborlin.generate(function(){
         fs.existsSync(path.join('fulldocs','css')).should.equal(true);
         if(fs.existsSync('fulldocs')){
           fs.removeSync('fulldocs');
@@ -226,14 +226,14 @@
       });
     });
     it('should work with defaults and no stuff', function(done) {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: 'fulldocs/',
         template: path.join("node_modules", "topdoc-theme"),
         templateData: {}
        });
-      topdoc.generate(function(){
+      taborlin.generate(function(){
         fs.existsSync(path.join('fulldocs','css')).should.equal(true);
         if(fs.existsSync('fulldocs')){
           fs.removeSync('fulldocs');
@@ -242,41 +242,41 @@
       });
     });
     it('should find all the css documents', function() {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir
       });
-      topdoc.generate(function(){
-        return topdoc.files.should.be.ok;
+      taborlin.generate(function(){
+        return taborlin.files.should.be.ok;
       });
     });
     it('should return an error when template is missing', function(done) {
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: this.srcDir,
         destination: this.outputDir,
         template: './'
       });
       try {
-        topdoc.generate(function(){
+        taborlin.generate(function(){
         });
       } catch (err) {
         done();
       }
     });
     it('should generate iframe html files', function(done){
-      var topdoc;
-      topdoc = new Topdoc({
+      var taborlin;
+      taborlin = new Taborlin({
         source: path.join('test', 'cases', 'iframe'),
         destination: 'fulldocs/',
         template: path.join("node_modules", "topdoc-theme")
       });
-      topdoc.generate((function(){
-        var caseTopdociFrame, resultiFrame;
-        caseTopdociFrame = read(path.join('test', 'cases', 'iframe', 'overlay.overlay.html'), 'utf8');
+      taborlin.generate((function(){
+        var caseTaborliniFrame, resultiFrame;
+        caseTaborliniFrame = read(path.join('test', 'cases', 'iframe', 'overlay.overlay.html'), 'utf8');
         resultiFrame = read(path.join('fulldocs/', 'overlay.overlay.html'), 'utf8');
-        resultiFrame.should.equal(caseTopdociFrame);
+        resultiFrame.should.equal(caseTaborliniFrame);
         if(fs.existsSync('fulldocs')){
           fs.removeSync('fulldocs');
         }

@@ -21,7 +21,7 @@ var path = require('path');
 var fs   = require('fs');
 var program = require('commander');
 var lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
-var Topdoc = require(lib + '/topdoc');
+var Taborlin = require(lib + '/taborlin');
 
 program
 	.option('-s, --source <directory>', 'The css source directory.')
@@ -40,14 +40,14 @@ var templateData = null;
 
 if(fs.existsSync('./package.json')) {
 	var packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
-	if(packageJSON.topdoc !== null){
-		var topdocData = packageJSON.topdoc;
+	if(packageJSON.taborlin !== null){
+		var taborlinData = packageJSON.taborlin;
 		
-		source = program.source || topdocData.source || 'src';
-		destination = program.destination || topdocData.destination || 'docs';
-		template = program.template || topdocData.template || path.resolve(__dirname, '..', 'lib', 'template.jade');
-		if(topdocData && topdocData.templateData){
-			templateData = topdocData.templateData;
+		source = program.source || taborlinData.source || 'src';
+		destination = program.destination || taborlinData.destination || 'docs';
+		template = program.template || taborlinData.template || path.resolve(__dirname, '..', 'lib', 'template.jade');
+		if(taborlinData && taborlinData.templateData){
+			templateData = taborlinData.templateData;
 		} else {
 			var projectTitle = program.project || path.basename(process.cwd());
 			templateData = {title: projectTitle};
@@ -68,8 +68,8 @@ if(!fs.existsSync(source)){
 		templateData: templateData
 	};
 
-	var topdoc = new Topdoc(options);
-	topdoc.generate((function(){
+	var taborlin = new Taborlin(options);
+	taborlin.generate((function(){
 		console.log('Generated documentation in ' + destination);
 	}).bind(destination));
 }
