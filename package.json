@@ -25,14 +25,13 @@
     "test": "make test"
   },
   "dependencies": {
-    "commander": "~1.2.0",
-    "css-parse": "~1.4.0",
-    "jade": "~0.31.2",
-    "fs-extra": "~0.6.1",
     "async": "~0.2.9",
+    "commander": "~1.2.0",
+    "fs-extra": "~0.6.1",
+    "jade": "~0.31.2",
     "ncp": "~0.4.2",
-    "js-yaml": "~2.1.0",
-    "clean-css": "~2.0.2"
+    "taborlin-parse": "0.0.4",
+    "taborlin-utils": "0.0.4"
   },
   "devDependencies": {
     "mocha": "~1.11.0",
