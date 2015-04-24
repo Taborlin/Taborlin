@@ -37,6 +37,7 @@ Below is an example of a Taborlin comment, take a look, and then read the explan
 .topcoat-button--cta,
 .topcoat-button--large--cta {
 /* all your css junk here */
+}
 ```
 
 Taborlin comments must start with `taborlin` on the first comment line, it makes it quick and easy to identify from other comments.
