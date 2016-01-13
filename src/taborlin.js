@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  *
  * Copyright (c) 2013 Adobe Systems Incorporated. All rights reserved.
@@ -17,10 +15,9 @@
  * limitations under the License.
  *
  */
-(function () {
+(function() {
   "use strict";
-
-  var fs = require('fs-extra');
+  let fs = require('fs-extra');
   var path = require('path');
   var read = fs.readFileSync;
   var TaborlinParse = require('taborlin-parse');
@@ -29,10 +26,10 @@
   var async = require('async');
   var ncp = require('ncp');
 
-  var Taborlin = function () {
+  var Taborlin = (function() {
     function Taborlin(options) {
       var projectTitle;
-      if (options.templateData === null || options.templateData === undefined || options.templateData.title) {
+      if (options.templateData === null || options.templateData === undefined ||options.templateData.title) {
         projectTitle = null;
       }
       this.source = options.source !== undefined ? options.source : 'src';
@@ -40,14 +37,14 @@
       this.files = this.findCSSFiles(this.source);
       this.template = options.template !== undefined ? options.template : path.join(__dirname, 'template.jade');
       this.templateData = options.templateData;
-      if (options.templateData !== null && options.templateData !== undefined) {
+      if(options.templateData !== null && options.templateData !== undefined) {
         this.projectTitle = options.templateData.title !== undefined ? taborlinUtils.titlify(options.templateData.title) : 'Taborlins';
       } else {
         this.projectTitle = 'Taborlins';
       }
     }
 
-    Taborlin.prototype.parseFiles = function () {
+    Taborlin.prototype.parseFiles = function() {
       var file, results, _i, _len, _ref;
       results = [];
       _ref = this.files;
@@ -60,7 +57,7 @@
       }
       return results;
     };
-    Taborlin.prototype.parseFileData = function (file) {
+    Taborlin.prototype.parseFileData = function(file) {
       var data = {};
       var filename = path.basename(file);
       var basename = filename.substring(0, filename.length - path.extname(filename).length);
@@ -72,65 +69,68 @@
         template: this.template
       };
       return data;
-    };
-    Taborlin.prototype.generate = function (callback) {
+      }
+    Taborlin.prototype.generate = function(callback) {
       this.results = this.parseFiles();
       if (this.results.length > 0) {
         fs.mkdirsSync(this.destination);
       }
       var tasks = [];
-      tasks = [this.organizeTemplate.bind(this), this.writeHTMLFiles.bind(this)];
-      async.parallel(tasks, function () {
-        if (fs.existsSync(path.join(this.destination, 'index.jade'))) {
+      tasks = [
+        this.organizeTemplate.bind(this),
+        this.writeHTMLFiles.bind(this)
+      ];
+      async.parallel(tasks, (function(){
+        if(fs.existsSync(path.join(this.destination, 'index.jade'))){
           fs.removeSync(path.join(this.destination, 'index.jade'));
         }
         callback();
-      }.bind(this, callback));
+      }).bind(this, callback));
     };
 
-    Taborlin.prototype.organizeTemplate = function (callback) {
+    Taborlin.prototype.organizeTemplate = function(callback) {
       this.jadefile = null;
       this.iframejadefile = null;
-      if (fs.statSync(this.template).isDirectory()) {
+      if(fs.statSync(this.template).isDirectory()){
         this.jadefile = path.join(this.template, 'index.jade');
-        if (fs.existsSync(path.join(this.template, 'iframe.jade'))) {
+        if(fs.existsSync(path.join(this.template, 'iframe.jade'))){
           this.iframejadefile = path.join(this.template, 'iframe.jade');
         }
-        if (!fs.existsSync(this.jadefile)) {
+        if(!fs.existsSync(this.jadefile)){
           return console.error('missing index.jade file');
         }
-        var filter = function (name) {
+        var filter = (function (name) {
           var relative = path.relative(this.template, name);
-          if (relative.match(/node_modules/)) {
+          if(relative.match(/node_modules/)){
             return false;
           }
-          if (name.match(/readme/i)) {
+          if(name.match(/readme/i)){
             return false;
           }
-          if (name.match(/iframe.jade/)) {
+          if(name.match(/iframe.jade/)){
             return false;
           }
-          if (path.basename(name).indexOf('.') === 0) {
+          if(path.basename(name).indexOf('.') === 0) {
             return false;
           }
-          if (path.basename(name) === 'package.json') {
+          if(path.basename(name) === 'package.json') {
             return false;
           }
           return true;
-        }.bind(this);
-        ncp(this.template, this.destination, { filter: filter }, function (err) {
+        }).bind(this);
+        ncp(this.template, this.destination, {filter: filter}, (function(err){
           if (err) {
             return console.error(err);
           }
           callback(null, 'template directory copied');
-        }.bind(callback));
+        }).bind(callback));
       } else {
         this.jadefile = this.template;
-        callback(null, 'using ' + this.jadefile);
+        callback(null, 'using '+this.jadefile);
       }
     };
 
-    Taborlin.prototype.writeHTMLFiles = function (callback) {
+    Taborlin.prototype.writeHTMLFiles = function(callback) {
       var fn = jade.compile(read(path.join(this.jadefile), 'utf8'), {
         pretty: true
       });
@@ -145,14 +145,14 @@
         };
         for (var k = result.components.length - 1; k >= 0; k--) {
           result.iframeComponents = [];
-          if (result.components[k].iframe) {
+          if(result.components[k].iframe){
             var component = result.components[k];
-            var iframeFilename = component.slug + '.' + result.filename.replace('.css', '.html');
+            var iframeFilename = component.slug+'.'+result.filename.replace('.css','.html');
             component.filename = iframeFilename;
             result.iframeComponents.push(component);
           }
-          if (result.iframeComponents.length > 0) {
-            if (!this.iframejadefile) {
+          if(result.iframeComponents.length > 0){
+            if(!this.iframejadefile){
               return console.error('missing iframe.jade file');
             }
           }
@@ -164,7 +164,7 @@
       };
       for (var j = 0; j < this.results.length; j++) {
         result = this.results[j];
-        result.relativeSource = path.join(path.relative(this.destination, this.source), result.filename);
+        result.relativeSource = path.join(path.relative(this.destination,this.source), result.filename);
         result.url = nav[j].url;
         var htmloutput = fn({
           document: result,
@@ -174,13 +174,13 @@
         });
         var outputFilePath = path.join(this.destination, nav[j].url);
         fs.writeFileSync(outputFilePath, htmloutput);
-        if (result.iframeComponents && result.iframeComponents.length > 0) {
+        if(result.iframeComponents && result.iframeComponents.length > 0) {
           for (var l = 0; l < result.iframeComponents.length; l++) {
             var iframeComponent = result.iframeComponents[l];
             var iFn = jade.compile(read(this.iframejadefile, 'utf8'), {
               pretty: true
             });
-            result.relativeSource = path.join(path.relative(this.destination, this.source), result.filename);
+            result.relativeSource = path.join(path.relative(this.destination,this.source), result.filename);
             var iframeFilePath = path.join(this.destination, iframeComponent.filename);
             iframeComponent.filename = path.relative(outputFilePath, path.join(this.destination, iframeComponent.filename));
             var iframeoutput = iFn({
@@ -196,7 +196,7 @@
       callback(null, 'files written');
     };
 
-    Taborlin.prototype.findCSSFiles = function (dir) {
+    Taborlin.prototype.findCSSFiles = function(dir) {
       var file, list, results, _i, _len;
       results = [];
       list = fs.readdirSync(dir);
@@ -212,13 +212,13 @@
       return results;
     };
 
-    Taborlin.prototype.getExtension = function (file) {
+    Taborlin.prototype.getExtension = function(file) {
       var ext;
       ext = path.extname(path.basename(file)).split('.');
       return ext[ext.length - 1];
     };
 
-    Taborlin.prototype.outputUrlify = function (inputURL) {
+    Taborlin.prototype.outputUrlify = function(inputURL) {
       var url;
       url = inputURL.substring(0, inputURL.length - 4);
       url = url + '.html';
@@ -226,7 +226,9 @@
     };
 
     return Taborlin;
-  }();
+
+  })();
 
   module.exports = Taborlin;
-}).call(undefined);
+
+}).call(this);
