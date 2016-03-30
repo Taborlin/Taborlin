@@ -22,7 +22,8 @@
   },
   "preferGlobal": "true",
   "scripts": {
-    "test": "make test"
+    "test": "mocha --reporter dot --require should",
+    "test:watch": "mocha --reporter dot --require should --growl --watch"
   },
   "dependencies": {
     "async": "~0.2.9",
