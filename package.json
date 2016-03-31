@@ -23,7 +23,8 @@
   "preferGlobal": "true",
   "scripts": {
     "test": "mocha --reporter dot --require should",
-    "test:watch": "mocha --reporter dot --require should --growl --watch"
+    "test:watch": "mocha --reporter dot --require should --growl --watch",
+    "test:spencer": "mocha --grep Spencer --require should"
   },
   "dependencies": {
     "async": "^0.2.10",
