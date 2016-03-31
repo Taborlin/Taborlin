@@ -82,7 +82,7 @@
         source: this.srcDir,
         destination: this.outputDir
       });
-      taborlin.files[0].should.equal('test/cases/simple/button.css');
+      taborlin.files[0].should.equal(path.join('test', 'cases', 'simple', 'button.css'));
     });
     it('should ignore .min.css files in directory', function() {
       var taborlin;
