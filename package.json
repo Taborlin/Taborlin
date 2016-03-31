@@ -26,18 +26,18 @@
     "test:watch": "mocha --reporter dot --require should --growl --watch"
   },
   "dependencies": {
-    "async": "~0.2.9",
-    "commander": "~1.2.0",
-    "fs-extra": "~0.6.1",
-    "jade": "~0.31.2",
-    "ncp": "~0.4.2",
+    "async": "^0.2.10",
+    "commander": "^1.2.0",
+    "fs-extra": "^0.6.4",
+    "jade": "^0.31.2",
+    "ncp": "^0.4.2",
     "taborlin-parse": "0.0.4",
     "taborlin-utils": "0.0.4"
   },
   "devDependencies": {
-    "mocha": "~1.11.0",
-    "should": "~1.2.2",
-    "topdoc-theme": "0.5.0"
+    "mocha": "^1.11.0",
+    "should": "^1.2.2",
+    "topdoc-theme": "^0.5.0"
   },
   "engines": {
     "node": "*"
