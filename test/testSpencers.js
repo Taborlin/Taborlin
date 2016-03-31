@@ -43,9 +43,9 @@
       taborlin.generate(function(){
         generatedDoc = read(path.join('fulldocs', 'index.html'), 'utf8');
         generatedDoc.should.be.ok;
-        // if(fs.existsSync('fulldocs')){
-        //   fs.removeSync('fulldocs');
-        // }
+        if(fs.existsSync('fulldocs')){
+          fs.removeSync('fulldocs');
+        }
         done();
       });
     });
