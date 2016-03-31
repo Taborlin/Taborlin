@@ -14,13 +14,40 @@
       var generatedDoc, taborlin;
       taborlin = new Taborlin({
         source: this.srcDir,
-        destination: this.outputDir
+        destination: 'fulldocs/',
+        template: path.join("node_modules", "topdoc-theme"),
+        templateData: {
+          title: "Topcoat",
+          subtitle: "CSS for clean and fast web apps",
+          download: {
+            url: "#",
+            label: "Download version 0.4"
+            },
+          homeURL: "http://topcoat.io",
+          siteNav: [
+            {
+              url: "http://www.garthdb.com",
+              text: "Usage Guidelines"
+            },
+            {
+              url: "http://bench.topcoat.io/",
+              text: "Benchmarks"
+            },
+            {
+              url: "http://topcoat.io/blog",
+              text: "Blog"
+            }
+          ]
+        }
       });
-      taborlin.generate((function(){
-        generatedDoc = read(path.join('test', 'docs', 'index.html'), 'utf8');
+      taborlin.generate(function(){
+        generatedDoc = read(path.join('fulldocs', 'index.html'), 'utf8');
         generatedDoc.should.be.ok;
+        // if(fs.existsSync('fulldocs')){
+        //   fs.removeSync('fulldocs');
+        // }
         done();
-      }).bind(done));
+      });
     });
   })
 }).call(this);
